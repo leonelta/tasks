@@ -3,30 +3,26 @@ const moment = require('moment');
 const app = express();
 const port = 3000;
 
-app.get('/info', (req, res) => {
-  const { name: KetchKaren, Backend } = req.query;
-  const currentDayOfWeek = moment().format('dddd');
-  const currentUTCTime = moment().utc().format('HH:mm:ss');
+app.get('/', (req, res) => {
+  const slackName = req.query.slack_name || 'ketchakaren';
+  const track = req.query.track || 'backend';
 
-  // Validate UTC time within +/- 2 hours
-  const utcOffset = moment().utcOffset();
-  if (utcOffset > 120 || utcOffset < -120) {
-    return res.status(400).json({ error: 'Invalid UTC time' });
-  }
+  const current_Day = moment().format('dddd');
+  const UTC_Time = moment().utc().format();
 
   // Get GitHub URLs
-  const githubURL = `https://github.com/leonelta/tasks/blob/master/app.js`;
-  const fullSourceCodeURL = 'https://github.com/leonelta/tasks';
+  const github_file_URL = `https://github.com/leonelta/tasks/blob/master/app.js`;
+  const github_repo_URL = 'https://github.com/leonelta/tasks';
 
   // Prepare response JSON
   const response = {
-    KetchKaren,
-    currentDayOfWeek,
-    currentUTCTime,
-    Backend,
-    githubURL,
-    fullSourceCodeURL,
-    statusCode: 'Success',
+    slack_name: slackName,
+    current_Day,
+    UTC_Time,
+    track: track,
+    github_file_URL,
+    github_repo_URL,
+    statusCode: 200,
   };
 
   return res.json(response);
