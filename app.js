@@ -7,22 +7,22 @@ app.get('/api', (req, res) => {
   const slackName = req.query.slack_name || 'ketchakaren';
   const track = req.query.track || 'backend';
 
-  const current_Day = moment().format('dddd');
-  const UTC_Time = moment().utc().format();
+  const current_day = moment().format('dddd');
+  const utc_time = moment().utc().format();
 
   // Get GitHub URLs
-  const github_file_URL = `https://github.com/leonelta/tasks/blob/master/app.js`;
-  const github_repo_URL = 'https://github.com/leonelta/tasks';
+  const github_file_url = `https://github.com/leonelta/tasks/blob/master/app.js`;
+  const github_repo_url = 'https://github.com/leonelta/tasks';
 
   // Prepare response JSON
   const response = {
     slack_name: slackName,
-    current_Day,
-    UTC_Time,
+    current_day,
+    utc_time,
     track: track,
-    github_file_URL,
-    github_repo_URL,
-    statusCode: 200,
+    github_file_url,
+    github_repo_url,
+    status_code: 200,
   };
 
   return res.json(response);
